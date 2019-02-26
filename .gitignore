@@ -15,10 +15,6 @@ cmake-build-debug/
 CMakeFiles/
 recommonmark/
 ors/tensor.save
-python/paddle/v2/fluid/tests/book/image_classification_resnet.inference.model/
-python/paddle/v2/fluid/tests/book/image_classification_vgg.inference.model/
-python/paddle/v2/fluid/tests/book/label_semantic_roles.inference.model/
-paddle/fluid/operators/distributed/send_recv.proto
 *.DS_Store
 *.vs
 build/
@@ -43,5 +39,4 @@ third_party/
 build_*
 # clion workspace.
 cmake-build-*
-paddle/fluid/operators/distributed/send_recv.proto
 model_test
