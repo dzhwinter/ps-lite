@@ -5,12 +5,6 @@
  */
 #ifndef DMLC_BASE_H_
 #define DMLC_BASE_H_
-
-/*! \brief whether use glog for logging */
-#ifndef DMLC_USE_GLOG
-#define DMLC_USE_GLOG 0
-#endif
-
 /*!
  * \brief whether throw dmlc::Error instead of
  *  directly calling abort when FATAL error occured

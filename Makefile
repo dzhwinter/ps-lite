@@ -2,6 +2,7 @@ ifdef config
 include $(config)
 endif
 
+include make/config.mk
 include make/ps.mk
 
 ifndef CXX

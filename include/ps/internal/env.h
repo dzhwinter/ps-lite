@@ -21,10 +21,15 @@ class Environment {
     return _GetSharedRef(nullptr).get();
   }
   /**
+   *
    * \brief return a shared ptr of the singleton instance
    */
   static inline std::shared_ptr<Environment> _GetSharedRef() {
     return _GetSharedRef(nullptr);
+  }
+
+  inline void Set(const std::string& env, const std::string& val) {
+    kvs[env] = val;
   }
   /**
    * \brief initialize the environment
