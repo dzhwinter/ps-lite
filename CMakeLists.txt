@@ -1,52 +1,46 @@
-project(pslite CXX C)
+cmake_minimum_required(VERSION 3.10)
+project(ps_lite)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules")
-set(PS_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
-set(PS_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
-set(THIRD_PARTY ${CMAKE_SOURCE_DIR}/deps)
+set(CMAKE_CXX_STANDARD 14)
 
-include_directories(${PS_SOURCE_DIR}/include)
-include_directories(${PS_SOURCE_DIR}/src)
+include_directories(deps)
+include_directories(deps/include)
+include_directories(include)
+include_directories(include/dmlc)
+include_directories(include/ps)
+include_directories(include/ps/internal)
+include_directories(src)
+include_directories(src/windows)
 
-# third-party
-include_directories(${THIRD_PARTY}/include)
-link_directories(${THIRD_PARTY}/lib)
-
-include(generic)
-include(ProtoBuf)
-include(${CMAKE_MODULE_PATH}/External/zmq)
-
-option(WITH_TESTING     "Compile pslite with unit testing"        OFF)
-
-set(COMMON_FLAGS
-  -std=c++11
-  -fPIC
-  -fno-omit-frame-pointer
-  )
-foreach(flag ${COMMON_FLAGS})
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${flag}")
-endforeach()
-
-
-set(pslite_deps)
-
-find_package(Protobuf REQUIRED)
-include_directories(${Protobuf_INCLUDE_DIRS})
-set(pslite_deps ${pslite_deps} ${Protobuf_LIBRARIES})
-
-find_package(glog REQUIRED)
-set(pslite_deps ${pslite_deps} glog::glog)
-
-find_package(gflags REQUIRED)
-set(pslite_deps ${pslite_deps} gflags::gflags)
-
-
-find_library(ZMQ NAMES libzmq.a
-  PATHS ${THIRD_PATRY}/lib NO_DEFAULT_PATH DOC "ZEROMQ library")
-
-if(WITH_TESTING)
-  enable_testing()
-  find_package(gtest REQUIRED)
-  set(pslite_deps ${pslite_deps} GTest::GTest GTest::Main)
-endif()
+add_executable(ps_lite
+        deps/include/zmq.h
+        deps/include/zmq_utils.h
+        include/dmlc/base.h
+        include/dmlc/logging.h
+        include/ps/internal/assign_op.h
+        include/ps/internal/customer.h
+        include/ps/internal/env.h
+        include/ps/internal/message.h
+        include/ps/internal/parallel_kv_match.h
+        include/ps/internal/parallel_sort.h
+        include/ps/internal/postoffice.h
+        include/ps/internal/threadsafe_queue.h
+        include/ps/internal/utils.h
+        include/ps/internal/van.h
+        include/ps/base.h
+        include/ps/kv_app.h
+        include/ps/ps.h
+        include/ps/range.h
+        include/ps/sarray.h
+        include/ps/simple_app.h
+        src/windows/unistd.h
+        src/customer.cc
+        src/network_utils.h
+        src/postoffice.cc
+        src/resender.h
+        src/van.cc
+        src/zmq_van.h
+        tests/test_connection.cc
+        tests/test_kv_app.cc
+        tests/test_kv_app_multi_workers.cc
+        tests/test_simple_app.cc)

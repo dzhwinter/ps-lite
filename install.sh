@@ -1,4 +1,4 @@
-apt-get update && apt-get install libprotobuf-dev \
+sudo apt-get update && sudo apt-get -y install libprotobuf-dev \
                           libleveldb-dev \
                           protobuf-compiler \
                           libgflags-dev \
